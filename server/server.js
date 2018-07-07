@@ -89,9 +89,9 @@ app.patch('/todos/:id',(req,res)=>{
 });
 
 app.post('/users',(req,res)=>{
-    var body = _.pick(req,body,['email','password']);
+    var body = _.pick(req.body,['email','password']);
     var user = new User(body);
-
+    console.log(body);
     user.save().then((user)=>{
         res.status(200).send({user});
     }).catch((e)=>{
