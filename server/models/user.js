@@ -76,19 +76,20 @@ var UserSchema = new mongoose.Schema({
    });
  };
 
- UserSchema.pre('save',function(next){
+ UserSchema.pre('save', function (next) {
     var user = this;
-    if(user.isModified('password')){
-        bcrypt.genSalt(100,(err,salt)=>{
-            bcrypt.hash(user.password,salt,(err,hash)=>{
-                user.password = hash;
-                next();
-            })
+  
+    if (user.isModified('password')) {
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(user.password, salt, (err, hash) => {
+          user.password = hash;
+          next();
         });
-    }else{
-        next();
+      });
+    } else {
+      next();
     }
- });
+  });
 
 var User = mongoose.model('User',UserSchema);
 
